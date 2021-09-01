@@ -1,7 +1,12 @@
 from django.urls import path
-from need_gas_app.api.views import client_list, services_list
+from need_gas_app.api.views import (
+    ClientListAV,
+    ServiceListAV,
+    ServiceDetailAV,
+)
 
 urlpatterns = [
-    path('clients/', client_list, name='client-list'),
-    path('services/', services_list, name='services-list'),
+    path('clients/', ClientListAV.as_view(), name='client-list'),
+    path('services/', ServiceListAV.as_view(), name='services-list'),
+    path('services/<int:pk>', ServiceDetailAV.as_view(), name='service-detail'),
 ]
