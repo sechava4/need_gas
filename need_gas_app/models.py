@@ -16,7 +16,7 @@ class Client(models.Model):
 
 
 class Service(models.Model):
-    client_id = models.ForeignKey(Client, on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="services")
     state = EnumField(ServiceStates, max_length=15)
     created_time = models.DateField(auto_now_add=True)
 

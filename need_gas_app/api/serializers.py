@@ -8,11 +8,9 @@ class ServiceSerializer(EnumSupportSerializerMixin, serializers.ModelSerializer)
         model = Service
         fields = '__all__'
 
-    def create(self, validated_data):
-        return Service.objects.create(**validated_data)
-
 
 class ClientSerializer(EnumSupportSerializerMixin, serializers.ModelSerializer):
+    services = ServiceSerializer(many=True, read_only=True)
     class Meta:
         model = Client
         fields = '__all__'
