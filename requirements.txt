@@ -1,0 +1,5 @@
+Django==3.2.6
+django-enumfields
+djangorestframework==3.12.4
+scikit-learn
+requests

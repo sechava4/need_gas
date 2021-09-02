@@ -1,6 +1,6 @@
 from enumfields.drf.serializers import EnumSupportSerializerMixin
 from rest_framework import serializers
-from need_gas_app.models import Service, Client
+from need_gas_app.models import Service, Client, Driver
 
 
 class ServiceSerializer(EnumSupportSerializerMixin, serializers.ModelSerializer):
@@ -9,8 +9,21 @@ class ServiceSerializer(EnumSupportSerializerMixin, serializers.ModelSerializer)
         fields = '__all__'
 
 
-class ClientSerializer(EnumSupportSerializerMixin, serializers.ModelSerializer):
+class ClientSerializer(EnumSupportSerializerMixin, serializers.HyperlinkedModelSerializer):
     services = ServiceSerializer(many=True, read_only=True)
     class Meta:
         model = Client
         fields = '__all__'
+
+
+class DriverSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Driver
+        fields = '__all__'
+
+
+class TaskSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    x = serializers.IntegerField()
+    y = serializers.IntegerField()
+    minutes = serializers.FloatField()
