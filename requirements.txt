@@ -3,3 +3,4 @@ django-enumfields
 djangorestframework==3.12.4
 scikit-learn
 requests
+psycopg2

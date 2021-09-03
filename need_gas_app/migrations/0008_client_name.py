@@ -7,13 +7,13 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('need_gas_app', '0007_auto_20210901_2248'),
+        ("need_gas_app", "0007_auto_20210901_2248"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='client',
-            name='name',
+            model_name="client",
+            name="name",
             field=models.CharField(default=django.utils.timezone.now, max_length=30),
             preserve_default=False,
         ),

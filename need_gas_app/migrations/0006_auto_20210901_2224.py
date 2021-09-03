@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('need_gas_app', '0005_auto_20210901_1930'),
+        ("need_gas_app", "0005_auto_20210901_1930"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='client',
-            name='updated',
+            model_name="client",
+            name="updated",
             field=models.DateField(auto_now=True),
         ),
         migrations.AddField(
-            model_name='service',
-            name='updated',
+            model_name="service",
+            name="updated",
             field=models.DateField(auto_now=True),
         ),
     ]

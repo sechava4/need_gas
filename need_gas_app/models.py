@@ -13,21 +13,32 @@ class ServiceStates(Enum):
 
 class Client(models.Model):
     name = models.CharField(max_length=30)
-    x = models.FloatField(max_length=5, validators=[MinValueValidator(0), MaxValueValidator(100)])
-    y = models.FloatField(max_length=5, validators=[MinValueValidator(0), MaxValueValidator(100)])
+    x = models.FloatField(
+        max_length=5, validators=[MinValueValidator(0), MaxValueValidator(100)]
+    )
+    y = models.FloatField(
+        max_length=5, validators=[MinValueValidator(0), MaxValueValidator(100)]
+    )
     updated = models.DateTimeField(auto_now=True)
 
 
 class Driver(models.Model):
     id = models.IntegerField(primary_key=True)
-    x = models.FloatField(max_length=5, validators=[MinValueValidator(0), MaxValueValidator(100)])
-    y = models.FloatField(max_length=5, validators=[MinValueValidator(0), MaxValueValidator(100)])
+    x = models.FloatField(
+        max_length=5, validators=[MinValueValidator(0), MaxValueValidator(100)]
+    )
+    y = models.FloatField(
+        max_length=5, validators=[MinValueValidator(0), MaxValueValidator(100)]
+    )
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=False)
 
 
 class Service(models.Model):
-    client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="services")
+    client = models.ForeignKey(
+        Client, on_delete=models.CASCADE, related_name="services"
+    )
+    driver = models.ForeignKey(Driver, on_delete=models.CASCADE, related_name="service")
     state = EnumField(ServiceStates, max_length=15)
     created_time = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

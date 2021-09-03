@@ -7,13 +7,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('need_gas_app', '0008_client_name'),
+        ("need_gas_app", "0008_client_name"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='client',
-            name='x',
-            field=models.FloatField(max_length=5, validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(99)]),
+            model_name="client",
+            name="x",
+            field=models.FloatField(
+                max_length=5,
+                validators=[
+                    django.core.validators.MinValueValidator(0),
+                    django.core.validators.MaxValueValidator(99),
+                ],
+            ),
         ),
     ]

@@ -9,16 +9,35 @@ import need_gas_app.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('need_gas_app', '0001_initial'),
+        ("need_gas_app", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Service',
+            name="Service",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('state', enumfields.fields.EnumField(enum=need_gas_app.models.ServiceStates, max_length=15)),
-                ('client_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='need_gas_app.client')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "state",
+                    enumfields.fields.EnumField(
+                        enum=need_gas_app.models.ServiceStates, max_length=15
+                    ),
+                ),
+                (
+                    "client_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="need_gas_app.client",
+                    ),
+                ),
             ],
         ),
     ]

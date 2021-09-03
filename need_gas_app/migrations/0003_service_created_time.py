@@ -7,13 +7,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('need_gas_app', '0002_service'),
+        ("need_gas_app", "0002_service"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='service',
-            name='created_time',
-            field=models.DateField(default=datetime.datetime(2021, 9, 1, 3, 8, 28, 431708)),
+            model_name="service",
+            name="created_time",
+            field=models.DateField(
+                default=datetime.datetime(2021, 9, 1, 3, 8, 28, 431708)
+            ),
         ),
     ]
