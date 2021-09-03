@@ -1,19 +1,19 @@
+import math
 from datetime import datetime
 
 import requests
-from rest_framework.exceptions import ValidationError
+from rest_framework import status, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import status, generics
 
-from need_gas_app.api.interactors import DriverInteractor
-from need_gas_app.models import Service, Client, Driver
+from need_gas_app.api.interactors import DriverInteractor, StationInteractor
 from need_gas_app.api.serializers import (
     ClientSerializer,
     ServiceSerializer,
     DriverSerializer,
-    TaskSerializer,
+    RequestSerializer,
 )
+from need_gas_app.models import Service, Client, Driver, Request
 
 
 class ClientListAV(generics.ListCreateAPIView):
@@ -58,9 +58,23 @@ class ServiceRequestAV(APIView):
     def post(self, request, pk):
         try:
             client = Client.objects.get(pk=pk)
-            drivers = DriverInteractor()
-            driver = drivers.get_nearest(client, 1)
-            ser = TaskSerializer(driver)
+            available_drivers = Driver.objects.filter(active=False).all()
+
+            driver_interactor = DriverInteractor(available_drivers)
+            station_interactor = StationInteractor()
+
+            closest_driver, driver_dist = driver_interactor.get_nearest(client)
+            closest_station, driver_to_station_dist = station_interactor.get_nearest(closest_driver)
+
+            client_to_station_dist = math.dist([client.x, client.y], [closest_station.x, closest_station.y])
+
+            total_dist = client_to_station_dist + driver_to_station_dist
+
+            # assuming distances in kms
+            total_minutes = 60 * total_dist / driver_interactor.speed_kmh
+            total_minutes += driver_interactor.recharge_time
+
+            ser = RequestSerializer(Request(closest_driver.id, total_minutes))
             return Response(ser.data)
         except Client.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)

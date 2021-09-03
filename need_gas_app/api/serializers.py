@@ -1,5 +1,8 @@
+from abc import ABC
+
 from enumfields.drf.serializers import EnumSupportSerializerMixin
 from rest_framework import serializers
+
 from need_gas_app.models import Service, Client, Driver
 
 
@@ -22,8 +25,6 @@ class DriverSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class TaskSerializer(serializers.Serializer):
-    id = serializers.IntegerField()
-    x = serializers.IntegerField()
-    y = serializers.IntegerField()
+class RequestSerializer(serializers.Serializer):
+    driver_id = serializers.IntegerField()
     minutes = serializers.FloatField()

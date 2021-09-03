@@ -1,3 +1,4 @@
+import dataclasses
 from enum import Enum
 from enumfields import EnumField
 from django.core.validators import MinValueValidator, MaxValueValidator
@@ -30,3 +31,16 @@ class Service(models.Model):
     state = EnumField(ServiceStates, max_length=15)
     created_time = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+
+@dataclasses.dataclass
+class Station:
+    id: int
+    x: float
+    y: float
+
+
+@dataclasses.dataclass
+class Request:
+    driver_id: int
+    minutes: float
